@@ -7,6 +7,7 @@
   <distributionManagement>
   	<repository>
   		<id>benniesLifeApplication</id>
+  		<url>C:\Users\bcwie\Desktop\BenniesLife\v2</url>
   	</repository>
   </distributionManagement>
   
