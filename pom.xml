@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>BennieLife_v1</groupId>
   <artifactId>BenniesLifeApplication</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   
   <distributionManagement>
   	<repository>
@@ -11,8 +11,8 @@
   </distributionManagement>
   
   <scm>
- 	<connection>scm:git:https://github.com/8ennie/PrayerApplication.git</connection>
-    <tag>BenniesLifeApplication-0.0.1</tag>
+ 	<connection>scm:git:https://github.com/8ennie/BenniesLife.git</connection>
+    <tag>HEAD</tag>
   </scm>
   <dependencies>
   	<dependency>
