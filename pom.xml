@@ -11,7 +11,7 @@
   </distributionManagement>
   
   <scm>
- 	<connection>scm:git://github.com/8ennie/BenniesLife.git</connection>
+ 	<connection>scm:git:https://github.com/8ennie/PrayerApplication.git</connection>
     <tag>BenniesLifeApplication-0.0.1</tag>
   </scm>
   <dependencies>
