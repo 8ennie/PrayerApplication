@@ -32,7 +32,8 @@ public class PersonDao extends JpaDao<Person, Integer> implements IPersonDao{
 		cq.select(u);
 		cq.where(cb.equal(u.get(Person_.personType), new PersonTypeDao().findById(type)));
 		TypedQuery<Person> q = entityManager.createQuery(cq);
-		return q.getResultList();
+		List<Person> pList = q.getResultList();
+		return pList;
 	}
 
 	@Override

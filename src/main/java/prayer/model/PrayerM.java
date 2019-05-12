@@ -1,6 +1,6 @@
 package prayer.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 import javafx.beans.property.IntegerProperty;
@@ -16,14 +16,15 @@ public class PrayerM {
 	private final StringProperty topic;
 	private final StringProperty persons;
     private final StringProperty prayerDescription;
-    private final ObjectProperty<Date> dueDate;
+    private final ObjectProperty<LocalDateTime> dueDate;
     
-	public PrayerM(int prayer_id, String topic, String prayerDescription,String persons, java.util.Date date) {
+	public PrayerM(int prayer_id, String topic, String prayerDescription,String persons, LocalDateTime date) {
 		this.prayer_id = new SimpleIntegerProperty(prayer_id);
 		this.topic = new SimpleStringProperty(topic);
 		this.prayerDescription = new SimpleStringProperty(prayerDescription);
 		this.persons = new SimpleStringProperty(persons);
-		this.dueDate = new SimpleObjectProperty<Date>(date);
+		this.dueDate = new SimpleObjectProperty<LocalDateTime>(date);
+		
 	}
 
 	
@@ -43,7 +44,7 @@ public class PrayerM {
 	}
 
 
-	public ObjectProperty<Date> getDueDate() {
+	public ObjectProperty<LocalDateTime> getDueDate() {
 		return dueDate;
 	}
 

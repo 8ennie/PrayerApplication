@@ -7,8 +7,8 @@ package login.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import database.User;
 import databaseDAO.UserDao;
+import generalApplications.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -23,8 +23,6 @@ import prayer.MainPrayerApp;
 
 public class LoginController {
 	
-	public static User curUser;
-
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -84,7 +82,7 @@ public class LoginController {
 			String userPassword =  new UserDao().getPassword(txtUsernmae.getText());
 			PasswordHandler passwordHandler = new PasswordHandler();
 			if (userPassword != null && passwordHandler.checkPassword(pwfPassword.getText(),userPassword)){
-				curUser = new UserDao().findById(txtUsernmae.getText());
+				Session.curentUser = new UserDao().findById(txtUsernmae.getText());
 				new Alert(AlertType.INFORMATION, "Login was Succesfull.").showAndWait();
 				new MainPrayerApp().start(mainLoginApp.getPrimaryStage());
 			} else {

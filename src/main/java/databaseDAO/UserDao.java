@@ -22,7 +22,6 @@ public class UserDao extends JpaDao<User, String>implements IUserDao {
 		try {
 			return q.getSingleResult();
 		} catch (Exception e) {
-			// TODO: handle exception
 			return null;
 		}
 		 

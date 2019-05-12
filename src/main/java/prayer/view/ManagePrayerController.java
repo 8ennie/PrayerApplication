@@ -10,9 +10,11 @@ import java.util.ResourceBundle;
 
 import database.Person;
 import database.Prayer;
-import database.User;
 import databaseDAO.PersonDao;
 import databaseDAO.PrayerDao;
+import generalApplications.Session;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,7 +26,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import login.view.LoginController;
 import prayer.MainPrayerApp;
 
 /**
@@ -62,15 +63,14 @@ public class ManagePrayerController {
 
 	@FXML // fx:id="spImportance"
 	private Spinner<Integer> spImportance; // Value injected by FXMLLoader
-	
+
 	@FXML // fx:id="lblUsernaem"
 	private Label lblUsernaem; // Value injected by FXMLLoader
 
 	private MainPrayerApp mainPrayerApp;
 
 	private List<Person> pList = new ArrayList<>();
-	
-	private User curUser = LoginController.curUser;
+
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
@@ -83,10 +83,19 @@ public class ManagePrayerController {
 		assert lblAddedPersons != null : "fx:id=\"lblAddedPersons\" was not injected: check your FXML file 'ManagePrayerView.fxml'.";
 		assert spImportance != null : "fx:id=\"spImportance\" was not injected: check your FXML file 'ManagePrayerView.fxml'.";
 		assert lblUsernaem != null : "fx:id=\"lblUsernaem\" was not injected: check your FXML file 'ManagePrayerView.fxml'.";
-		
+
 		dpDate.getEditor().setDisable(true);
 		dpDate.getEditor().setEditable(false);
-		lblUsernaem.setText("User: " + curUser.getUsername());
+		lblUsernaem.setText("User: " + Session.curentUser.getUsername());
+
+		cbPersons.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+				if(cbPersons.getValue() != null) {
+					addPerson();
+				}
+			}
+		});
 	}
 
 	public void setMainApp(MainPrayerApp mainPrayerApp) {
@@ -108,7 +117,7 @@ public class ManagePrayerController {
 		cbPersons.getItems().clear();
 		List<Person> pList = mainPrayerApp.getPeronData();
 		for (Person person : pList) {
-			cbPersons.getItems().add(person.getLastname() + " " + person.getFirstname() + "[" + person.getPerson_id() + "]");
+			cbPersons.getItems().add(person.getFirstname() + person.getLastname() + "[" + person.getPerson_id() + "]");
 		}
 	}
 
@@ -116,10 +125,10 @@ public class ManagePrayerController {
 	private void addNewPerson() {
 		mainPrayerApp.showCreatePersonDialog();
 	}
-	
-	@FXML
+
 	private void addPerson() {
-		if (!cbPersons.getValue().isEmpty()) {
+		System.out.println(cbPersons.getValue());
+		if (cbPersons.getValue() != null || !cbPersons.getValue().isEmpty()) {
 			Person pAdd = getPerson();
 			pList.add(pAdd);
 			String newP = pAdd.getLastname() + " " + pAdd.getFirstname();
@@ -147,9 +156,9 @@ public class ManagePrayerController {
 			prayer.setTopic(txtPrayerTopic.getText());
 			prayer.setPrayerDescription(txtPrayerDescription.getText());
 			prayer.setImportance(spImportance.getValue());
-			prayer.setPrayerCreator(curUser);
+			prayer.setPrayerCreator(Session.curentUser);
 			if (dpDate.getValue() != null) {
-				prayer.setDueDate(java.sql.Date.valueOf(dpDate.getValue()));
+				prayer.setDueDate(dpDate.getValue().atStartOfDay());
 			}
 			if (!txtNotes.getText().isEmpty()) {
 				prayer.setNotes(txtNotes.getText());
@@ -159,11 +168,11 @@ public class ManagePrayerController {
 			} else {
 				prayer.setAnswered(false);
 			}
-			if(!pList.isEmpty()) {
+			if (!pList.isEmpty()) {
 				prayer.setPerson(pList);
 				for (Person person : pList) {
 					person.setPrayer(prayer);
-				}				
+				}
 			}
 			try {
 				new PrayerDao().persist(prayer);
@@ -194,8 +203,8 @@ public class ManagePrayerController {
 	}
 
 	private Person getPerson() {
-		String[]  split1 = cbPersons.getValue().split("\\[");
-		String[]  split2 = split1[1].split("\\]");
+		String[] split1 = cbPersons.getValue().split("\\[");
+		String[] split2 = split1[1].split("\\]");
 		Person p = new PersonDao().findById(Integer.valueOf(split2[0]));
 		return p;
 	}

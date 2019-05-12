@@ -3,6 +3,7 @@
  */
 package database;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,13 @@ import javax.persistence.ManyToMany;
  *
  */
 @Entity
-public class PersonType {
+public class PersonType implements Serializable{
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +38,7 @@ public class PersonType {
 	@Column
 	private String typeDescription;
 	
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany (cascade = CascadeType.PERSIST)
 	private List<Person> person = new ArrayList<Person>();
 
 	public String getTypeName() {

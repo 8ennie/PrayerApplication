@@ -1,5 +1,7 @@
 package database;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +18,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Prayer {
+public class Prayer implements Serializable{
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +54,8 @@ public class Prayer {
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
 	
-	@Temporal(TemporalType.DATE)
-	private Date dueDate;
+	@Column
+	private LocalDateTime dueDate;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Person> person = new ArrayList<Person>();
@@ -84,7 +92,7 @@ public class Prayer {
 		return createdDate;
 	}
 
-	public Date getDueDate() {
+	public LocalDateTime getDueDate() {
 		return dueDate;
 	}
 
@@ -128,7 +136,7 @@ public class Prayer {
 		this.createdDate = createdDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(LocalDateTime dueDate) {
 		this.dueDate = dueDate;
 	}
 

@@ -1,5 +1,6 @@
 package database;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -23,12 +24,18 @@ import javax.persistence.Transient;
 
 
 @Entity
-public class Person {
+public class Person implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int person_id;
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany (cascade = CascadeType.PERSIST)
 	private List<PersonType> personType = new ArrayList<PersonType>();
 	@Column(nullable=false)
 	private String lastname;
@@ -56,9 +63,11 @@ public class Person {
 	
 	@PostLoad
 	private void postLoad() {
-		LocalDate date = birthday.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		Period p = Period.between(LocalDate.now(), date);
-		this.age = p.getYears();
+		if(birthday != null) {
+			LocalDate date = birthday.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			Period p = Period.between(LocalDate.now(), date);
+			this.age = p.getYears();			
+		}
 	}
 	
 	public int getPerson_id() {
@@ -136,5 +145,12 @@ public class Person {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	@Override
+	public String toString() {
+		return "Person [lastname=" + lastname + ", firstname=" + firstname + "]";
+	}
+
+	
 	
 }

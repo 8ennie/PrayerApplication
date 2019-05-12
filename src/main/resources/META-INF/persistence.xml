@@ -7,12 +7,15 @@
 		<class>database.UserCategory</class>
 		<class>database.PersonType</class>
 		<class>database.Prayer</class>
+		<class>database.PersonGroup</class>
+		<class>databaseDAO.LocalDateAttributeConverter</class>
+		<class>databaseDAO.LocalDateTimeAttributeConverter</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3316/bennieslife_test?serverTimezone=GMT"/>
+			<property name="javax.persistence.schema-generation.database.action" value="create"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3316/bennieslife_live?serverTimezone=GMT"/>
 			<property name="javax.persistence.jdbc.user" value="admin"/>
 			<property name="javax.persistence.jdbc.password" value="DEUTSCHland00"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.schema-generation.database.action" value="create"/>
 			<property name="javax.persistence.schema-generation.create-source" value="metadata"/>
 		</properties>
 	</persistence-unit>

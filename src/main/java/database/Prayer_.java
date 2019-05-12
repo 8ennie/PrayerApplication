@@ -20,6 +20,8 @@ public abstract class Prayer_ {
 	public static volatile SingularAttribute<Prayer, String> topic;
 	public static volatile SingularAttribute<Prayer, String> prayerDescription;
 	public static volatile SingularAttribute<Prayer, Date> dateAnswered;
+	public static volatile SingularAttribute<Prayer, User> prayerCreator;
+	
 
 }
 

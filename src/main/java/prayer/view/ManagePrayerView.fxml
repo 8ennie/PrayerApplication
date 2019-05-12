@@ -132,7 +132,7 @@
                         <Insets bottom="25.0" left="25.0" right="25.0" top="5.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" onAction="#addPerson" prefHeight="25.0" prefWidth="75.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets right="25.0" top="5.0" />
                      </GridPane.margin>
